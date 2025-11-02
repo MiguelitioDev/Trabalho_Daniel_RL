@@ -1,22 +1,172 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho_Rl</title>]
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockMaster — Gerenciador de Estoque</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-    <div class="FundoTitulosA1">
-        <header>
-            <div class="fundo_T2">
-                <h1 class="TituloA1">Atacadão Do Bom</h1>
-            </div>
-            <div class="fundo_T3">
-                <p class="subTituloA1">Cabe no seu Bolso💲</p>
-            </div>
-        </header>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-badge">📦</div>
+      <div class="logo-texts">
+        <h1>StockMaster</h1>
+        <p>Gerenciador de Estoque de E-commerce</p>
+      </div>
     </div>
+    <button class="btn danger pill" onclick="sair()">Sair</button>
+  </header>
 
+  <!-- CARDS KPI -->
+  <section class="cards">
+    <article class="card kpi">
+      <div class="kpi-label">Total de Produtos</div>
+      <div class="kpi-value" id="kpiTotalProdutos">0</div>
+    </article>
+
+    <article class="card kpi">
+      <div class="kpi-label">Valor Total em Estoque</div>
+      <div class="kpi-value" id="kpiValorTotal">R$ 0,00</div>
+    </article>
+
+    <article class="card kpi">
+      <div class="kpi-label">Estoque Baixo</div>
+      <div class="kpi-value" id="kpiEstoqueBaixo">0 produtos</div>
+    </article>
+  </section>
+
+  <!-- ABA (MENU) -->
+  <nav class="tabs">
+    <button class="tab active" onclick="mostrar('listar', this)">📄 Listar</button>
+    <button class="tab" onclick="mostrar('cadastrar', this)">➕ Cadastrar</button>
+    <button class="tab" onclick="mostrar('buscar', this)">🔎 Buscar</button>
+    <button class="tab" onclick="mostrar('entrada', this)">⬆️ Entrada</button>
+    <button class="tab" onclick="mostrar('baixa', this)">⬇️ Baixa</button>
+  </nav>
+
+  <!-- CONTEÚDO -->
+  <main class="views">
+
+    <!-- LISTAR -->
+    <section id="listar" class="view show">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="panel-ico">🧱</span>
+          <h3>Inventário de Produtos</h3>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Status</th>
+                <th>Última Atualização</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProdutos"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CADASTRAR -->
+    <section id="cadastrar" class="view">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="panel-ico">➕</span>
+          <h3>Cadastrar Produto</h3>
+        </div>
+
+        <div class="grid-2">
+          <label>
+            <span>Nome do Produto</span>
+            <input id="inNome" placeholder="Ex.: Notebook Dell"/>
+          </label>
+          <label>
+            <span>Código (SKU)</span>
+            <input id="inCodigo" placeholder="Ex.: NB001"/>
+          </label>
+          <label>
+            <span>Preço (R$)</span>
+            <input id="inPreco" type="number" step="0.01" min="0" placeholder="3500.00"/>
+          </label>
+          <label>
+            <span>Quantidade Inicial</span>
+            <input id="inQtd" type="number" min="0" placeholder="10"/>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary pill" onclick="cadastrarProduto()">Cadastrar</button>
+          <button class="btn ghost pill" onclick="inNome.value='';inCodigo.value='';inPreco.value='';inQtd.value=''">Limpar</button>
+        </div>
+        <p id="msgCadastro" class="msg"></p>
+      </div>
+    </section>
+
+    <!-- BUSCAR -->
+    <section id="buscar" class="view">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="panel-ico">🔎</span>
+          <h3>Buscar Produto</h3>
+        </div>
+
+        <div class="inline">
+          <input id="inBuscaCodigo" placeholder="Ex.: NB001"/>
+          <button class="btn primary pill" onclick="buscarProduto()">Buscar</button>
+        </div>
+        <div id="resultadoBusca" class="result muted">Nenhuma busca realizada.</div>
+      </div>
+    </section>
+
+    <!-- ENTRADA -->
+    <section id="entrada" class="view">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="panel-ico">⬆️</span>
+          <h3>Dar Entrada</h3>
+        </div>
+
+        <div class="inline wrap">
+          <input id="inEntCodigo" placeholder="Código (SKU)"/>
+          <input id="inEntQtd" type="number" min="1" placeholder="Qtd a adicionar"/>
+          <button class="btn primary pill" onclick="registrarEntrada()">Registrar Entrada</button>
+        </div>
+        <p id="msgEntrada" class="msg"></p>
+      </div>
+    </section>
+
+    <!-- BAIXA -->
+    <section id="baixa" class="view">
+      <div class="panel">
+        <div class="panel-title">
+          <span class="panel-ico">⬇️</span>
+          <h3>Dar Baixa</h3>
+        </div>
+
+        <div class="inline wrap">
+          <input id="inBaiCodigo" placeholder="Código (SKU)"/>
+          <input id="inBaiQtd" type="number" min="1" placeholder="Qtd a remover"/>
+          <button class="btn primary pill" onclick="registrarBaixa()">Registrar Baixa</button>
+        </div>
+        <p id="msgBaixa" class="msg"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Desenvolvido por <strong>Paulo</strong>, <strong>Márcia</strong> e <strong>Miguel</strong> — 2025
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
