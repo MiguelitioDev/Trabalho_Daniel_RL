@@ -1,10 +1,12 @@
-Relatório Técnico — Explicação do JavaScript (StockMaster)
-1) Visão Geral da Arquitetura do JS
+#Relatório Técnico — Explicação do JavaScript (StockMaster)
+
+#1) Visão Geral da Arquitetura do JS
 O JavaScript organiza a lógica do sistema em três blocos principais:
 • Dados (arrays paralelos e constantes);
 • Funções auxiliares (pequenas utilidades reutilizáveis);
 • Funções principais (as 6 operações pedidas: listar, cadastrar, buscar, entrada, baixa e sair).
-2) Dados Iniciais (Arrays Paralelos)
+
+#2) Dados Iniciais (Arrays Paralelos)
 Os arrays paralelos mantêm a informação do mesmo produto no mesmo índice (i):
 let produtos  = [...];   // nomes
 let codigos   = [...];   // códigos únicos (SKU)
@@ -13,7 +15,8 @@ let estoque   = [...];   // quantidade disponível (número)
 let ultimaAtualizacao = [...]; // texto com data/hora de modificação
 
 A variável LIMITE_BAIXO define o ponto onde um item passa a ser considerado 'estoque baixo'.
-3) Funções Auxiliares
+
+#3) Funções Auxiliares
 3.1) mostrar(id, botao)
 Responsável por alternar as abas (views) da interface.
 Passos:
@@ -36,7 +39,8 @@ Como funciona:
 • Calcula mínimo e máximo para normalizar os pontos no intervalo [0, 1];
 • Converte cada valor em coordenadas (x,y) dentro da viewBox 100x28;
 • Atualiza o elemento <polyline> com a lista de pontos e posiciona um ponto final (<circle>).
-4) Funções Principais (Requisitos da Prova)
+
+#4) Funções Principais (Requisitos da Prova)
 4.1) listarProdutos()
 Responsável por:
 • Limpar e remontar o <tbody> da tabela com todos os produtos;
@@ -72,29 +76,34 @@ Objetivo: registrar venda/consumo.
 4) Chama listarProdutos() para atualizar tela e KPIs.
 4.6) sair()
 Simula o encerramento da sessão: mostra um alert e desabilita todos os botões (for sobre getElementsByTagName('button')).
-5) Mapa Requisito → Implementação
+
+#5) Mapa Requisito → Implementação
 1. Cadastrar Produto → cadastrarProduto()
 2. Listar Produtos → listarProdutos()
 3. Buscar por Código → buscarProduto() + procurarIndice()
 4. Dar Entrada → registrarEntrada()
 5. Dar Baixa → registrarBaixa()
 6. Sair → sair()
-6) Regras de Validação e Mensagens
+
+#6) Regras de Validação e Mensagens
 • Campos obrigatórios (nome, código, preço e quantidade) não podem ficar vazios;
 • Código (SKU) deve ser único (checagem via procurarIndice);
 • Quantidades de entrada/baixa devem ser maiores que zero;
 • Na baixa, a quantidade solicitada não pode ultrapassar o estoque atual;
 • Mensagens de erro/sucesso são exibidas nos elementos #msgCadastro, #msgEntrada e #msgBaixa.
-7) Interação com o DOM (Elementos da Tela)
+
+#7) Interação com o DOM (Elementos da Tela)
 Leitura/Escrita de valores e classes visuais:
 • document.getElementById('...').value → lê valores dos inputs;
 • element.innerHTML → escreve o conteúdo das tabelas e mensagens;
 • element.classList.add()/remove() → alterna visibilidade das views e estados das abas;
 • getElementsByTagName('button') → usado em sair() para desabilitar todos os botões.
-8) Complexidade e Escalabilidade
+
+#8) Complexidade e Escalabilidade
 • As funções de busca usam varredura linear O(n), adequada para listas pequenas e didática.
 • Para catálogos grandes, recomenda-se usar um mapa (objeto ou Map) de código→índice, reduzindo buscas para O(1).
-9) Casos de Teste Sugeridos
+
+#9) Casos de Teste Sugeridos
 1) Cadastrar com todos os campos vazios → deve bloquear.
 2) Cadastrar com código já existente → deve bloquear.
 3) Cadastrar item válido → deve aparecer na lista e atualizar KPIs.
@@ -103,7 +112,8 @@ Leitura/Escrita de valores e classes visuais:
 6) Baixa com estoque insuficiente → bloquear.
 7) Baixa válida → reduzir estoque e, se ficar abaixo do limite, status virar 'Estoque baixo'.
 8) Sair → todos os botões ficam desativados.
-10) Pseudocódigo Resumido
+
+#10) Pseudocódigo Resumido
 fun listarProdutos():
   limpar tabela
   total ← 0; baixos ← 0
@@ -124,5 +134,6 @@ fun registrarEntrada()/registrarBaixa():
   validar código e quantidade
   somar/subtrair
   atualizar data e listarProdutos()
-11) Conclusão
+
+#11) Conclusão
 O JS do StockMaster foi construído para evidenciar o domínio de arrays, índices, laços e condições. Cada função responde diretamente a um requisito da prova, e o código mantém uma ligação clara entre os elementos de interface e a lógica de negócio. O sparkline e as animações dos KPIs são extras visuais que não complicam a lógica central, mas enriquecem a apresentação.
