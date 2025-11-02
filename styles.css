@@ -1,39 +1,93 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+  --bg:#f6f8fc; --panel:#fff; --ink:#0f172a; --muted:#6b7280;
+  --primary:#2563eb; --primary-weak:#e9f1ff;
+  --danger:#e25252; --ok:#15803d; --ok-bg:#e9f7ee;
+  --shadow:0 12px 30px rgba(2,6,23,.08);
+  --radius:16px;
 }
 
-body{
-    background-color: rgb(250, 250, 250);
-}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif}
 
-.FundoTitulosA1{
-    background-color: sandybrown;
-    padding: 20px;
+/* HEADER */
+.header{
+  background:var(--panel); box-shadow:var(--shadow);
+  padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:10;
 }
-.fundo_T2{
-    background-color: rgb(253, 240, 211);
-    padding: 10px;
-}
-.fundo_T3{
-    background-color: rgb(255, 250, 240);
-    padding: 10px;
-}
+.header-left{display:flex;align-items:center;gap:14px}
+.logo-badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#3b82f6,#1d4ed8);color:#fff;font-size:22px}
+.logo-texts h1{margin:0;font-size:28px}
+.logo-texts p{margin:4px 0 0;color:var(--muted)}
 
-.TituloA1{
-    text-align: center;
-    color: rgb(255, 60, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    line-height: 0%;
+/* CARDS */
+.cards{padding:22px 28px; display:grid; gap:22px; grid-template-columns:repeat(3,1fr)}
+.card{background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
+.kpi{display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:136px}
+.kpi-label{color:var(--muted); font-weight:600}
+.kpi-value{margin-top:8px; font-size:28px; color:#0e1e5b}
+
+/* TABS */
+.tabs{
+  margin:0 28px 18px; background:var(--panel); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:10px; display:flex; gap:10px; flex-wrap:wrap;
 }
-.subTituloA1{
-    text-align: center;
-    color: rgb(129, 129, 85);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30px;
+.tab{
+  border:none; background:#eef2ff; color:#1f2a44; padding:10px 16px; border-radius:999px;
+  font-weight:700; cursor:pointer;
 }
+.tab.active{ background:var(--primary); color:#fff; }
 
+/* VIEWS & PANELS */
+.views{padding:0 28px 28px}
+.view{display:none}
+.view.show{display:block}
+.panel{background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px}
+.panel-title{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+.panel-ico{font-size:18px}
 
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%; border-collapse:collapse}
+th,td{padding:12px 10px; border-bottom:1px solid #eef2f7; text-align:left}
+thead th{background:#f7fafc; color:#334155; font-weight:700}
 
+/* FORMS */
+.grid-2{display:grid; grid-template-columns:repeat(2,minmax(220px,1fr)); gap:14px}
+.grid-2 label span{display:block; color:var(--muted); font-size:12px; margin-bottom:6px}
+
+.inline{display:flex; gap:10px; align-items:center; margin-top:8px}
+.inline.wrap{flex-wrap:wrap}
+
+input{
+  width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:12px; background:#fff; outline:none;
+}
+input:focus{border-color:#93c5fd; box-shadow:0 0 0 4px #e5f0ff}
+
+.actions{display:flex; gap:10px; margin-top:10px}
+
+.btn{
+  border:none; padding:10px 14px; font-weight:700; cursor:pointer; border-radius:10px; background:#eef2f7; color:#334155;
+}
+.btn.pill{border-radius:999px}
+.btn.primary{background:var(--primary); color:#fff}
+.btn.ghost{background:#eef2ff; color:#1f2a44}
+.btn.danger{background:var(--danger); color:#fff}
+
+.msg{margin-top:10px; font-weight:700}
+.msg.ok{color:var(--ok)} .msg.err{color:#b91c1c}
+
+.result{margin-top:12px; background:#f0f5ff; padding:12px; border-radius:12px; color:#1f2a44}
+
+/* FOOTER */
+.footer{padding:18px 28px; text-align:center; color:#6b7280}
+
+/* RESPONSIVO */
+@media (max-width: 980px){
+  .cards{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+}
+@media (max-width: 600px){
+  .header{flex-direction:column; align-items:flex-start; gap:12px}
+}
