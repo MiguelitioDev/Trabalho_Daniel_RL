@@ -7,7 +7,7 @@ O sistema não é a "vitrine" (storefront) para o cliente final, mas sim a ferra
 Autores
 Paulo
 
-Márcia
+Marcia
 
 Miguel
 
