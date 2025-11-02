@@ -20,25 +20,40 @@
     <button class="btn danger pill" onclick="sair()">Sair</button>
   </header>
 
-  <!-- CARDS KPI -->
+  <!-- CARDS KPI (lúdicos) -->
   <section class="cards">
-    <article class="card kpi">
+
+    <!-- Total de Produtos -->
+    <article class="card kpi kpi-1">
+      <div class="kpi-icon">🧰</div>
       <div class="kpi-label">Total de Produtos</div>
       <div class="kpi-value" id="kpiTotalProdutos">0</div>
     </article>
 
-    <article class="card kpi">
+    <!-- Valor Total em Estoque + sparkline -->
+    <article class="card kpi kpi-2">
+      <div class="kpi-icon">💰</div>
       <div class="kpi-label">Valor Total em Estoque</div>
       <div class="kpi-value" id="kpiValorTotal">R$ 0,00</div>
+
+      <!-- Mini gráfico (SVG) -->
+      <div class="kpi-mini">
+        <svg id="spark" viewBox="0 0 100 28" preserveAspectRatio="none">
+          <polyline id="sparkline" fill="none" stroke-width="2"></polyline>
+          <circle id="sparkDot" r="2" cx="0" cy="0"></circle>
+        </svg>
+      </div>
     </article>
 
-    <article class="card kpi">
+    <!-- Estoque Baixo -->
+    <article class="card kpi kpi-3">
+      <div class="kpi-icon">🔔</div>
       <div class="kpi-label">Estoque Baixo</div>
       <div class="kpi-value" id="kpiEstoqueBaixo">0 produtos</div>
     </article>
   </section>
 
-  <!-- ABA (MENU) -->
+  <!-- TABS -->
   <nav class="tabs">
     <button class="tab active" onclick="mostrar('listar', this)">📄 Listar</button>
     <button class="tab" onclick="mostrar('cadastrar', this)">➕ Cadastrar</button>
