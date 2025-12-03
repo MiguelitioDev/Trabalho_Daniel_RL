@@ -1,72 +1,69 @@
-# Trabalho_Daniel_RL
-StockMaster: Gerenciador de Estoque de E-commerce
-Este projeto simula um sistema de gerenciamento de estoque (Inventory Management System) focado no backend para uma loja de e-commerce. O objetivo principal é controlar o catálogo de produtos e suas quantidades, permitindo operações administrativas como cadastro, listagem e movimentação de estoque.
+# 📦 StockMaster: Gerenciador de Estoque
 
-O sistema não é a "vitrine" (storefront) para o cliente final, mas sim a ferramenta interna que o administrador da loja usaria para manter o estoque organizado e atualizado.
+> **Sistema de Gerenciamento de Estoque (Inventory Management System) para E-commerce.**
 
-Autores
-Paulo
+Este projeto simula a lógica de backend de uma loja virtual. O foco não é a vitrine para o cliente final, mas sim a ferramenta administrativa utilizada para controlar o catálogo, preços e movimentação de mercadorias.
 
-Marcia
+🔗 **Acesse o projeto:** [trabalhorl.netlify.app](https://trabalhorl.netlify.app/)
 
-Miguel
+---
 
-Estrutura de Dados
-O núcleo do sistema é construído sobre quatro arrays paralelos. Isso significa que o produto no index 5 do array produtos tem seus dados correspondentes no index 5 dos arrays codigos, precos e estoque.
+## 👥 Autores
 
-produtos: (Array de Strings) Armazena os nomes dos produtos.
+Projeto desenvolvido para a disciplina de Raciocínio Lógico (Prof. Daniel) por:
+* **Paulo**
+* **Marcia**
+* **Miguel**
 
-codigos: (Array de Strings) Armazena o SKU ou código de barras, servindo como o identificador único (chave) de cada produto.
+---
 
-precos: (Array de Números) Armazena o preço de cada produto.
+## ⚙️ Estrutura de Dados (Lógica)
 
-estoque: (Array de Números) Armazena a quantidade disponível de cada produto.
+O núcleo do sistema foi construído utilizando o conceito de **Arrays Paralelos**. Isso significa que o índice (index) é o conector entre as diferentes propriedades de um produto.
 
-Funcionalidades
-O sistema opera através de um menu interativo que oferece as seguintes operações de CRUD (Create, Read, Update, Delete) e gerenciamento:
+*Exemplo: O produto no `index 5` do array `produtos` tem seu preço no `index 5` do array `precos`.*
 
-1. Cadastrar Produto
-Permite ao usuário adicionar um novo item ao inventário. O sistema solicita:
+Os dados são organizados nos seguintes vetores:
 
-Nome
+* `produtos`: **(Array de Strings)** Nomes dos produtos.
+* `codigos`: **(Array de Strings)** SKU/Código de barras (Identificador único).
+* `precos`: **(Array de Números)** Valor unitário (R$).
+* `estoque`: **(Array de Números)** Quantidade disponível.
 
-Código (SKU)
+---
 
-Preço
+## 🚀 Funcionalidades
 
-Quantidade inicial em estoque
+O sistema conta com um menu interativo que permite operações completas de CRUD e gestão:
 
-Após o recebimento, esses dados são adicionados ao final dos quatro arrays correspondentes.
+### 1. 📝 Cadastrar Produto
+Adiciona um novo item ao catálogo preenchendo os 4 arrays simultaneamente.
+* **Dados solicitados:** Nome, Código (SKU), Preço e Quantidade Inicial.
 
-2. Listar Produtos
-Exibe no console uma tabela formatada com todos os produtos atualmente cadastrados, mostrando todas as suas informações: Código, Nome, Preço (R$) e Quantidade (Qtd).
+### 2. 📋 Listar Produtos
+Gera um relatório visual no console/tela com todos os itens cadastrados, formatados em tabela para fácil visualização.
 
-3. Buscar Produto por Código
-Permite ao usuário localizar um produto específico. O sistema solicita o código (SKU) e, ao encontrá-lo, exibe todos os dados associados àquele item.
+### 3. 🔍 Buscar por Código
+Localiza um produto específico através do seu SKU único e exibe seus detalhes.
 
-4. Dar Entrada no Estoque (Reposição)
-Usado para adicionar mais unidades a um produto já existente (ex: recebimento de um fornecedor).
+### 4. ➕ Entrada no Estoque (Reposição)
+Atualiza a quantidade de um item existente (ex: chegada de fornecedor).
+* Solicita o código -> Localiza o índice -> Soma a nova quantidade ao saldo atual.
 
-O sistema solicita o código do produto.
+### 5. ➖ Baixa no Estoque (Venda)
+Simula a venda e saída de produtos. Possui **validação de segurança**:
+* O sistema verifica: `Quantidade Solicitada <= Estoque Atual?`
+    * ✅ **Sim:** Subtrai do saldo.
+    * ❌ **Não:** Bloqueia a operação e exibe "Estoque insuficiente".
 
-Pergunta a quantidade a ser adicionada.
+### 6. 🚪 Sair
+Encerra a execução do loop do programa.
 
-Soma essa quantidade ao valor existente no array estoque para o índice encontrado.
+---
 
-5. Dar Baixa no Estoque (Venda)
-Simula a venda de um produto, removendo unidades do inventário.
+## 🛠 Tecnologias
+* HTML5
+* CSS3
+* JavaScript (Lógica de Arrays e Manipulação de Dados)
 
-O sistema solicita o código do produto.
-
-Pergunta a quantidade a ser removida (vendida).
-
-Verificação de Estoque: O sistema confere se a quantidade a ser removida é menor ou igual ao estoque atual (quantidade <= estoque[index]).
-
-Se sim: A quantidade é subtraída do array estoque.
-
-Se não: A operação é bloqueada e o sistema informa: "Estoque insuficiente".
-
-6. Sair
-Encerra a execução do programa.
-
-https://trabalhorl.netlify.app/
+---
